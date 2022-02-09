@@ -1,0 +1,103 @@
+.service-list {
+  width: 900px;
+  height: 100vh;
+}
+
+.service-list__wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.service-list__spinner img {
+  width: 300px;
+}
+
+.service-list__error {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #f4c6cb;
+  background-color: #f8d7da;
+  color: #942029;
+}
+
+.service-list .btn__add {
+  color: #e03e4e;
+  background-color: white;
+  border: 2px solid #e03e4e;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.8rem;
+  user-select: none;
+}
+
+.btn__add:hover {
+  color: white;
+}
+
+.service-list__list {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.service-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid silver;
+  margin-top: -1px;
+  padding: 0.5rem 0.8rem;
+}
+
+.service-list__controls {
+  display: flex;
+}
+
+.service-list__controls button {
+  width: 40px;
+  height: 40px;
+  margin-left: 0.8rem;
+}
+
+.btn {
+  border-radius: 0.25rem;
+  background-color: #e03e4e;
+  color: #ffffff;
+  transition: box-shadow 0.3s ease-out, background-color 0.3s ease-out, color 0.2s ease-out;
+}
+
+.btn:hover {
+  background-color: #c01c2d;
+  box-shadow: 0 0 5px 0 grey;
+}
+
+.btn__edit {
+  background-image: url("../../../img/edit.svg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 80%;
+}
+
+.btn__close {
+  background-image: url("../../../img/close.svg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 80%;
+}
+
+.service-list__btn-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.25rem;
+  background-color: #e03e4e;
+  margin-left: 0.8rem;
+}
+
+.service-list__btn-spinner img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}

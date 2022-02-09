@@ -1,0 +1,70 @@
+.service-add {
+  width: 900px;
+}
+
+.service-add__wrapper {
+  width: 500px;
+  background-color: whitesmoke;
+  border: 1px solid silver;
+  border-radius: 0.25rem;
+  padding: 0.8rem;
+  margin: auto;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.service-add__input {
+  width: 100%;
+  border: 1px solid silver;
+  outline: none;
+  border-radius: 5px;
+  padding: 0.5rem 0.8rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.service-add__input:focus {
+  outline: 1px solid grey;
+  outline-offset: -1px;
+}
+
+.service-add__controls {
+  display: flex;
+}
+
+.service-add__controls button {
+  width: 150px;
+  height: 40px;
+  margin-left: 0.8rem;
+}
+
+.service-add__btn-spinner {
+  width: 150px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.8rem;
+  border-radius: 0.25rem;
+  background-color: #e03e4e;
+}
+
+.service-add__btn-spinner img {
+  height: 40px;
+  width: 40px;
+}
+
+.service-add__error {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #f4c6cb;
+  background-color: #f8d7da;
+  color: #942029;
+}
+
+.btn__back {
+  padding: 0.5rem 0.8rem;
+  margin-left: 0.8rem;
+}

@@ -1,44 +1,165 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+<a name="top"></a>
 
-## Available Scripts
+# 11. Домашнее задание к лекции «Redux и Redux Thunk»
+[[GithubPages](https://igor-chazov.github.io/ra-hw-11_thunk_1-2)]
 
-In the project directory, you can run:
+---
 
-### `npm start`
+**Перейти к:**  
+***[11.2 API (Redux Thunk)](#11.2)***
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
+## <a name="11.1">11.1 API (Redux)</a>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Вам необходимо переделать проект с лекции с использованием Router, а также нормальной обработкой загрузки и отображения ошибок.
 
-### `npm test`
+Всё состояние должно храниться в Redux Store. Для взаимодействия с HTTP используйте fetch и чистый Redux (без дополнительных библиотек), но помните, что вы работаете с побочными эффектами.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Basic Level
 
-### `npm run build`
+При переходе на главную страницу пользователя должно перенаправлять автоматически на адрес '/services', на котором загружается список услуг (GET http://localhost:7070/api/services).
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+При загрузке данных (GET) должен отображаться спиннер (лоадер):
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+![](./assets/spinner.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+При получении ошибки (статус не 2xx):
+ 
+![](./assets/error.png)
 
-### `npm run eject`
+При нормальных загруженных данных:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![](./assets/list.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Для главной страницы сервер присылает данные в формате:
+```json
+[
+    {"id":1,"name":"Замена стекла","price":21000},
+    {"id":2,"name":"Замена дисплея","price":25000},
+    {"id":3,"name":"Замена аккумулятора","price":4000},
+    {"id":4,"name":"Замена микрофона","price":2500}
+]
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+При нажатии на кнопку удалить происходит удаление записи с последующей загрузкой всего списка.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Для удаления необходимо отправить запрос DELETE http://localhost:7070/api/serviced/:id, где id - id сервиса.
 
-## Learn More
+При нажатии на кнопку редактировать происходит переход по адресу: '/services/:id`, где id - это id сервиса.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+В форму подтягиваются данные через GET-запрос (требования к отображению лоадара и ошибок - соответствующие):
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![](./assets/edit.png)
+
+
+Обратите внимание, что в форме есть поле `content`, которое приходит только если сделать запрос GET http://localhost:7070/api/services/:id:
+
+```json
+{
+    "id":1,
+    "name":"Замена стекла",
+    "price":21000,
+    "content":"Стекло оригинал от Apple"
+}
+```
+
+При нажатии на кнопку Отмена, происходит возврат к предыдущей странице.
+
+При нажатии на кнопку Сохранить, происходит сохранение записи. При этом:
+1. Спиннер должен отображаться
+1. Если сохранение прошло успешно, выполняется переход на страницу со списком
+1. Если сохранение прошло с ошибкой, переход не осуществляется, высвечивается сообщение об ошибке.
+
+Для сохранения необходимо отправить POST-запрос по адресу http://localhost:7070/api/services, передав весь JSON (с id)
+
+### Advanced Level (необязательная часть)
+
+Сделайте так, чтобы при нажатии на кнопку удалить в списке вместо кнопок появлялся спиннер:
+
+![](./assets/remove-spinner.png)
+
+Обратите внимание, что "в состоянии удаления" могут быть одновременно несколько записей (как на картинке).
+
+То же самое с формой редактирования: отключайте всю форму и рисуйте спиннер не вместо всей формы, а только на кнопке:
+
+![](./assets/edit-spinner.png)
+
+---
+
+## <a name="11.2">11.2 API (Redux Thunk)</a>
+***[(наверх)](#top)***
+
+Вам необходимо переделать проект с лекции с использованием Router, а также нормальной обработкой загрузки и отображения ошибок.
+
+Всё состояние должно храниться в Redux Store. Для взаимодействия с HTTP используйте fetch и Redux Thunk.
+
+### Basic Level
+
+При переходе на главную страницу пользователя должно перенаправлять автоматически на адрес '/services', на котором загружается список услуг (GET http://localhost:7070/api/services).
+
+При загрузке данных (GET) должен отображаться спиннер (лоадер):
+
+![](./assets/spinner.png)
+
+При получении ошибки (статус не 2xx):
+ 
+![](./assets/error.png)
+
+При нормальных загруженных данных:
+
+![](./assets/list.png)
+
+Для главной страницы сервер присылает данные в формате:
+```json
+[
+    {"id":1,"name":"Замена стекла","price":21000},
+    {"id":2,"name":"Замена дисплея","price":25000},
+    {"id":3,"name":"Замена аккумулятора","price":4000},
+    {"id":4,"name":"Замена микрофона","price":2500}
+]
+```
+
+При нажатии на кнопку удалить происходит удаление записи с последующей загрузкой всего списка.
+
+Для удаления необходимо отправить запрос DELETE http://localhost:7070/api/serviced/:id, где id - id сервиса.
+
+При нажатии на кнопку редактировать происходит переход по адресу: '/services/:id`, где id - это id сервиса.
+
+В форму подтягиваются данные через GET-запрос (требования к отображению лоадара и ошибок - соответствующие):
+
+![](./assets/edit.png)
+
+
+Обратите внимание, что в форме есть поле `content`, которое приходит только если сделать запрос GET http://localhost:7070/api/services/:id:
+
+```json
+{
+    "id":1,
+    "name":"Замена стекла",
+    "price":21000,
+    "content":"Стекло оригинал от Apple"
+}
+```
+
+При нажатии на кнопку Отмена, происходит возврат к предыдущей странице.
+
+При нажатии на кнопку Сохранить, происходит сохранение записи. При этом:
+1. Спиннер должен отображаться
+1. Если сохранение прошло успешно, выполняется переход на страницу со списком
+1. Если сохранение прошло с ошибкой, переход не осуществляется, высвечивается сообщение об ошибке.
+
+Для сохранения необходимо отправить POST-запрос по адресу http://localhost:7070/api/services, передав весь JSON (с id)
+
+### Advanced Level (необязательная часть)
+
+Сделайте так, чтобы при нажатии на кнопку удалить в списке вместо кнопок появлялся спиннер:
+
+![](./assets/remove-spinner.png)
+
+Обратите внимание, что "в состоянии удаления" могут быть одновременно несколько записей (как на картинке).
+
+То же самое с формой редактирования: отключайте всю форму и рисуйте спиннер не вместо всей формы, а только на кнопке:
+
+![](./assets/edit-spinner.png)
+
+---
