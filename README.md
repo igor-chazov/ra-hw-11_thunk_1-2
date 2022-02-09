@@ -1,7 +1,7 @@
 <a name="top"></a>
 
 # 11. Домашнее задание к лекции «Redux и Redux Thunk»
-[[GithubPages](https://igor-chazov.github.io/ra-hw-11_thunk_1-2)]
+[![Build status](https://ci.appveyor.com/api/projects/status/b0vg02nqsf6x7r92?svg=true)](https://ci.appveyor.com/project/igor-chazov/ra-hw-11-thunk-1-2) [[GithubPages](https://igor-chazov.github.io/ra-hw-11_thunk_1-2)]
 
 ---
 
